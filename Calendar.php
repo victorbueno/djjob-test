@@ -2,33 +2,42 @@
 
 Class Calendar {
 	var $facebook;
+	var $eventName;
+	var $eventStartTime;
+	var $eventDescription;
+	var $eventLocation;
+	var $privacyType;
 
-	public function __construct($facebook) {
+	public function __construct($facebook, $eventName, $eventStartTime, $eventDescription, $eventLocation, $privacyType) {
 		$this->facebook = $facebook;
+		$this->eventName = $eventName;
+		$this->eventStartTime = $eventStartTime;
+		$this->eventDescription = $eventDescription;
+		$this->eventLocation = $eventLocation;
+		$this->privacyType = $privacyType;
 	}
 
 	public function send() {
-		
-
 		$user = $this->facebook->getUser();
 		$access_token = $this->facebook->getAccessToken();
-
-		echo $access_token;
 
 		$response = $this->facebook->api(
 			"/me/events",
 			"POST",
 			array (
-				'name' => 'This is a test event',
-				'start_time' => '2014-03-01T13:00:00-0800',
+				'name' => $this->eventName,
+				'start_time' => $this->eventStartTime,
 				#'end_time' => '',
-				'description' => 'Event description',
-				'location' => 'Evento location',
+				'description' => $this->eventDescription,
+				'location' => $this->eventLocation,
 				#'location_id' => ''
-				'privacy_type' => 'SECRET',
+				'privacy_type' => $this->privacyType,
 				'access_token' => $access_token,
 				)
 			);
+
+			#save the event id!
+			#$response['id'];
 	}
 
 	public function perform() {

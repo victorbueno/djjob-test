@@ -14,7 +14,7 @@ include_once("DJJob.php");
 $options = ['driver'=> 'mysql','host'=> '127.0.0.1','dbname'=> 'djjob','user'=> 'root','password'=> ''];
 DJJob::configure($options);
 
-$calendar = new Calendar($facebook);
+$calendar = new Calendar($facebook, 'Test Event', '2014-03-01T13:00:00-0800', 'Event description', 'Event location', 'SECRET');
 $calendar->sendLater();
 
 $worker = new DJWorker($options);
